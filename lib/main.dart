@@ -23,7 +23,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> _todoItems = ['Första', 'Andra', 'Tredje'];
+  List<String> _todoItems = [];
 
   _addTodoItem(newItemText) {
     setState(() {
@@ -53,6 +53,30 @@ class _MyHomePageState extends State<MyHomePage> {
     return result;
   }
 
+  _buildItem(todoItemText, index, context) {
+    return new Dismissible(
+      key: Key(todoItemText),
+      background: Container(color: Colors.red[900]),
+      onDismissed: (direction) {
+        setState(() {
+          _todoItems.removeAt(index);
+        });
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("$todoItemText borttagen"),
+          action: SnackBarAction(
+            label: 'Ångra',
+            onPressed: () {
+              setState(() {
+                _todoItems.insert(index, todoItemText);
+              });
+            },
+          ),
+        ));
+      },
+      child: new ListTile(title: new Text(todoItemText)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -60,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: new ListView.builder(
         itemCount: _todoItems.length,
         itemBuilder: (context, index) {
-          return new ListTile(title: new Text(_todoItems[index]));
+          return _buildItem(_todoItems[index], index, context);
         },
       ),
       floatingActionButton: new FloatingActionButton(
