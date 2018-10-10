@@ -55,26 +55,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _buildItem(todoItemText, index, context) {
     return new Dismissible(
-      key: Key(todoItemText),
-      background: Container(color: Colors.red[900]),
-      onDismissed: (direction) {
-        setState(() {
-          _todoItems.removeAt(index);
-        });
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text("$todoItemText borttagen"),
-          action: SnackBarAction(
-            label: 'Ångra',
-            onPressed: () {
-              setState(() {
-                _todoItems.insert(index, todoItemText);
-              });
-            },
-          ),
+        key: Key(todoItemText),
+        background: Container(color: Colors.red[900]),
+        onDismissed: (direction) {
+          setState(() {
+            _todoItems.removeAt(index);
+          });
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text("$todoItemText borttagen"),
+            action: SnackBarAction(
+              label: 'Ångra',
+              onPressed: () {
+                setState(() {
+                  _todoItems.insert(index, todoItemText);
+                });
+              },
+            ),
+          ));
+        },
+        child: Container(
+          child: new ListTile(title: new Text(todoItemText)),
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black26))),
         ));
-      },
-      child: new ListTile(title: new Text(todoItemText)),
-    );
   }
 
   @override
