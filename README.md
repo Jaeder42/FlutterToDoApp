@@ -1,8 +1,3 @@
-# todo_app
+# TODO Exmaple App
 
-A new Flutter project.
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+Exmaple app that shows some basic Flutter concepts
